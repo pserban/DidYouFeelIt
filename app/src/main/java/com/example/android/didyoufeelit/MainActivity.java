@@ -17,12 +17,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Event earthquake = Utils.fetchEarthquakeData(USGS_REQUEST_URL);
-
-        updateUI(earthquake);
+        EarthquakeAsyncTask task = new EarthquakeAsyncTask(this);
+        task.execute(MainActivity.USGS_REQUEST_URL);
     }
 
-    private void updateUI(Event earthquake) {
+    public void updateUI(Event earthquake) {
         TextView titleTextView = findViewById(R.id.title);
         titleTextView.setText(earthquake.title);
 
@@ -30,6 +29,6 @@ public class MainActivity extends AppCompatActivity {
         tsunamiTextView.setText(getString(R.string.num_people_felt_it, earthquake.numOfPeople));
 
         TextView magnitudeTextView = findViewById(R.id.perceived_magnitude);
-        magnitudeTextView.setText(earthquake.perceivedStrenght);
+        magnitudeTextView.setText(earthquake.perceivedStrength);
     }
 }
