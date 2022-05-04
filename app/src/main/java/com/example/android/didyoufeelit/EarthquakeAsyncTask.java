@@ -15,8 +15,14 @@ public class EarthquakeAsyncTask extends AsyncTask<String, Void, Event> {
     }
 
     @Override
-    protected Event doInBackground(String... strings) {
-        Event earthquake = Utils.fetchEarthquakeData(strings[0]);
+    protected Event doInBackground(String... urls) {
+        // Don't perform the request if there are no URLs,
+        // or the first URL is null.
+        if (urls.length < 1 || urls[0] == null || urls[0].isEmpty()) {
+            return null;
+        }
+
+        Event earthquake = Utils.fetchEarthquakeData(urls[0]);
 
         return earthquake;
     }
